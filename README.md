@@ -23,9 +23,57 @@ Other Data (732–733): 89.9800033569336
 Pump On&Off (734): 1
 
 ```
+Address : 700 = 02 BC<br>
+Slave : 01<br>
+function Code : 03 (read multiple Register)<br>
+Quantity : 40 (like  address 700 to 739)<br>
+frame :
+
+|slaveId|functionCode|address|  qty  |crc|
+|-------|------------|-------|-------|---|
+|   01  |    03      | 02 BC | 00 28 |CRC|
+
+
+
+
+read value from modbus protocol (qty 40)<br>
+Send Read Code (Hex Value) : ```01 03 02 BC 00 28 85 88``` <br>
+Return Value (Hex Value) :``` 01 03 50 42 49 75 C3 00 00 00 00 41 5D EB 85 00 00 00 00 00 64 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 41 45 C2 8F 00 00 00 00 02 A5 00 00 00 00 00 00 42 B3 F5 C3 00 00 00 00 00 00 00 00 00 00 00 00 E7 0D``` <br>
+Return Value : 01 (slaveid) 03 (functionCode) 50 (Data Quality) ....... (data) E7 0D (CRC) <br>
+```
+01 03 50 42 49 75 C3 00 00 00 00 41 5D EB 85 00 00 00 00 00 64 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 41 45 C2 8F 00 00 00 00 02 A5 00 00 00 00 00 00 42 B3 F5 C3 00 00 00 00 00 00 00 00 00 00 00 00 E7 0D
+```
+1. **Slave Address**: `01` – The device address.
+2. **Function Code**: `03` – This is a "Read Holding Registers" request.
+3. **Byte Count**: `50` – The number of data bytes following this field. This indicates that the following portion contains 80 bytes of data (since `50` in hexadecimal is 80 in decimal).
+4. **Data (Registers Values)**: 
+   - `42 49 75 C3 00 00 00 00 41 5D EB 85 00 00 00 00 00 64...` – The data being returned, likely representing register values. This is the actual information from the registers.
+5. **CRC (Checksum)**: `E7 0D` – A cyclic redundancy check (CRC) to ensure data integrity.
+
+### Count of Registers:
+
+Since the byte count field (`50` in hex, which equals 80 bytes) indicates the length of the data portion, we can assume that each register contains 2 bytes (16 bits). Therefore, the number of registers can be calculated by:
+
+- **Number of Registers** = Data Length (80 bytes) / 2 bytes per register = 40 registers.
+ the response is for **40 registers**.
+
+Write Data to Multiple Register (32 bit float version ) array size of float is 2  [700,701]
+----
+Write Function Code : 0x10 (multiple) <br>
+Send Write Data (12.56) 32bit float to address 700 : ``` 01 10 02 C0 00 02 04 41 48 F5 C3 75 B4 ```
+1. **Slave Address**: `01` – The device address.
+2. **Function Code**: `10` – This is a "Read Holding Registers" request.
+3. **Address** : `02 C0` - Start Address 700.
+4. **Byte Count**: `02` – Number of Registers This indicates that 2 registers are being written to. (700 to 701)
+5. **Byte Count of Data**: `04` - The number of data byte (12.56) convert to high byte and low byte 
+6. **Data (Registers Values)**: 
+   -  `41 48 F5 C3` – 12.56
+7. **CRC (Checksum)**: `75 B4` – A cyclic redundancy check (CRC) to ensure data integrity.
+
+send float number to modbus using this command : `01 10 02 C0 00 02 04 41 48 F5 C3 75 B4`
 
 Decimal (Return Data HEX Value)
-
+----
 |RturnValueFromSerial|    16969,30147,0,0,16709,46312,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16709,49807,0,0,677,0,0,0,17075,62915,1,0,0,0,0,0              |
 |--------------------|------------------|
 
@@ -105,5 +153,10 @@ Modbus Slave Table
 | 737      |                       | 0x0000      |                           |
 | 738      |                       | 0x0000      |                           |
 | 739      |                       | 0x0000      |                           |
+
+----
+
+
+
 
 
