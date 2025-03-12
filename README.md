@@ -107,6 +107,30 @@ output : 0x4148 (16712)
 console.log(lowByte)
 output: 0xf5c3 (62915)
 ```
+
+crc calculation 
+----
+```
+function crc16Update(crc, a) {
+  crc ^= a;
+  for (let i = 0; i < 8; ++i) {
+    if (crc & 1) {
+      crc = (crc >> 1) ^ 0xA001;
+    } else {
+      crc = (crc >> 1);
+    }
+  }
+  return crc & 0xFFFF;
+}
+
+function calculateCRC(bytes) {
+  let crc = 0xFFFF;
+  for (let byte of bytes) {
+    crc = crc16Update(crc, byte);
+  }
+  return crc;
+}
+```
 Decimal (Return Data HEX Value)
 ----
 |RturnValueFromSerial|    16969,30147,0,0,16709,46312,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16709,49807,0,0,677,0,0,0,17075,62915,1,0,0,0,0,0              |
