@@ -71,7 +71,41 @@ Send Write Data (12.56) 32bit float to address 700 : ``` 01 10 02 C0 00 02 04 41
 7. **CRC (Checksum)**: `75 B4` – A cyclic redundancy check (CRC) to ensure data integrity.
 
 send float number to modbus using this command : `01 10 02 C0 00 02 04 41 48 F5 C3 75 B4`
+Hight Byte Low Byte Conversion (javascript)
+----
 
+```
+1. First float to register value separated
+function floatToRegisters(floatValue) {
+  const buffer = new ArrayBuffer(4);
+  const view = new DataView(buffer);
+  view.setFloat32(0, floatValue);
+  const combined = view.getUint32(0);
+  return [(combined >> 16) & 0xFFFF, combined & 0xFFFF];
+}
+
+console.log(floatToRegisters(12.56)
+const registerValue = floatToRegisters(12.56)
+
+output : [ 16712, 62915 ]
+
+2. convert to high byte low byte of array value
+function highByte(value) {
+  return (value >> 8) & 0xFF;
+}
+
+function lowByte(value) {
+  return value & 0xFF;
+}
+
+const highByte = highByte(registerValue[0]);
+const lowByte = lowByte(registerValue[1]);
+console.log(highByte)
+output : 0x4148 (16712)
+
+console.log(lowByte)
+output: 0xf5c3 (62915)
+```
 Decimal (Return Data HEX Value)
 ----
 |RturnValueFromSerial|    16969,30147,0,0,16709,46312,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16709,49807,0,0,677,0,0,0,17075,62915,1,0,0,0,0,0              |
