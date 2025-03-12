@@ -1,6 +1,13 @@
 # ModbusRTUtest
 
 ---
+```
+npm install serialport
+node read_holding_register.js
+node write_multiple_register.js
+node write_single_register.js
+```
+
 Decimal (Return Data HEX Value)
 
 |RturnValueFromSerial|    16969,30147,0,0,16709,46312,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16709,49807,0,0,677,0,0,0,17075,62915,1,0,0,0,0,0              |
