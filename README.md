@@ -62,7 +62,7 @@ Write Data to Multiple Register (32 bit float version ) array size of float is 2
 Write Function Code : 0x10 (multiple) <br>
 Send Write Data (12.56) 32bit float to address 700 : ``` 01 10 02 C0 00 02 04 41 48 F5 C3 75 B4 ```
 1. **Slave Address**: `01` – The device address.
-2. **Function Code**: `10` – This is a "Read Holding Registers" request.
+2. **Function Code**: `10` – This is a "Write Function Code"
 3. **Address** : `02 C0` - Start Address 700.
 4. **Byte Count**: `02` – Number of Registers This indicates that 2 registers are being written to. (700 to 701)
 5. **Byte Count of Data**: `04` - The number of data byte (12.56) convert to high byte and low byte 
