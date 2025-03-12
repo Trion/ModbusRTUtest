@@ -8,6 +8,22 @@ node write_multiple_register.js
 node write_single_register.js
 ```
 
+# Parsed Modbu Data : 
+```
+node generate_value_register.js
+
+Parsed Modbus Data:
+Total Litter (700–701): 50.3650016784668
+Totallizer Amount (704–705): 12.356666564941406
+Live Data Liter (708): 100
+Live Price (712–713): 0
+Sell Litter (724): 16709
+Sell Liter Per Price (728): 677
+Other Data (732–733): 89.9800033569336
+Pump On&Off (734): 1
+
+```
+
 Decimal (Return Data HEX Value)
 
 |RturnValueFromSerial|    16969,30147,0,0,16709,46312,0,0,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16709,49807,0,0,677,0,0,0,17075,62915,1,0,0,0,0,0              |
