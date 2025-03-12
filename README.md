@@ -71,6 +71,7 @@ Send Write Data (12.56) 32bit float to address 700 : ``` 01 10 02 C0 00 02 04 41
 7. **CRC (Checksum)**: `75 B4` – A cyclic redundancy check (CRC) to ensure data integrity.
 
 send float number to modbus using this command : `01 10 02 C0 00 02 04 41 48 F5 C3 75 B4`
+
 Hight Byte Low Byte Conversion (javascript)
 ----
 
